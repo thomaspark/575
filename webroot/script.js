@@ -23,6 +23,7 @@ class App {
           const { username, currentCounter } = message.data;
           usernameLabel.innerText = username;
           counterLabel.innerText = counter = currentCounter;
+          console.log(message.data.words);
         }
 
         // Update counter
