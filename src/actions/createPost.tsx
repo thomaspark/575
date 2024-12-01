@@ -11,9 +11,10 @@ Devvit.addMenuItem({
   onPress: async (_event, context) => {
     const { reddit, ui } = context;
     const subreddit = await reddit.getCurrentSubreddit();
+    const d = new Date().toLocaleDateString('en-CA');
 
     const post = await reddit.submitPost({
-      title: 'Magnetry: 2024-11-30',
+      title: `Magnetry: ${d}`,
       subredditName: subreddit.name,
       preview: (
         <vstack height="100%" width="100%" alignment="middle center">
