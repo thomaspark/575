@@ -3,7 +3,6 @@ import { pickWords } from '../utils/utils.js';
 import allWords from '../../data/words.json';
 
 export const App = (context: Devvit.Context): JSX.Element => {
-  // Defines the messages that are exchanged between Devvit and Web View
   type WebViewMessage =
     | {
         type: 'initialData';
@@ -18,13 +17,11 @@ export const App = (context: Devvit.Context): JSX.Element => {
         data: { currentCounter: number };
       };
 
-  // Load username with `useAsync` hook
   const [username] = useState(async () => {
     const currUser = await context.reddit.getCurrentUser();
     return currUser?.username ?? 'anon';
   });
 
-  // // Load latest counter from redis with `useAsync` hook
   const [counter, setCounter] = useState(async () => {
     const redisCount = await context.redis.get(`counter_${context.postId}`);
     return Number(redisCount ?? 0);

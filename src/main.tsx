@@ -14,11 +14,4 @@ Devvit.addCustomPostType({
   render: App
 });
 
-// Devvit.addTrigger({
-//   event: 'PostCreate', // Event name from above
-//   onEvent: async (event) => {
-//     console.log(`Received OnPostSubmit event:\n${JSON.stringify(event)}`);
-//   },
-// });
-
 export default Devvit;
