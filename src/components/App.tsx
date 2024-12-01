@@ -1,9 +1,8 @@
 import { Devvit, useState } from '@devvit/public-api';
+import { pickWords } from '../utils/utils.js';
 import allWords from '../../data/words.json';
 
 export const App = (context: Devvit.Context): JSX.Element => {
-
-
   // Defines the messages that are exchanged between Devvit and Web View
   type WebViewMessage =
     | {
@@ -19,24 +18,6 @@ export const App = (context: Devvit.Context): JSX.Element => {
         data: { currentCounter: number };
       };
 
-
-  function shuffle(arr) {
-    return arr.sort(() => 0.5 - Math.random());
-  }
-
-  // function getMagnets(words) {
-  //   let magnets = [];
-  //   magnets.push(...words.always);
-  //   magnets.push(...shuffle(words.adjectives).slice(0, 15));
-  //   magnets.push(...shuffle(words.prepositions).slice(0, 10));
-  //   magnets.push(...shuffle(words.pronouns).slice(0, 10));
-  //   magnets.push(...shuffle(words.verbs).slice(0, 15));
-  //   magnets.push(...shuffle(words.nouns).slice(0, 15));
-
-  //   return magnets.sort();
-  // }
-
-
   // Load username with `useAsync` hook
   const [username] = useState(async () => {
     const currUser = await context.reddit.getCurrentUser();
@@ -51,33 +32,32 @@ export const App = (context: Devvit.Context): JSX.Element => {
 
   const [words, setWords] = useState(async () => {
     const redisWords = await context.redis.get(`words_${context.postId}`);
-    const getWords = (words) => {
-      let magnets = [];
-      magnets.push(...words.always);
-      magnets.push(...shuffle(words.adjectives).slice(0, 15));
-      magnets.push(...shuffle(words.prepositions).slice(0, 10));
-      magnets.push(...shuffle(words.pronouns).slice(0, 10));
-      magnets.push(...shuffle(words.verbs).slice(0, 15));
-      magnets.push(...shuffle(words.nouns).slice(0, 15));
 
-      return magnets.sort();
+    if (redisWords) {
+      return JSON.parse(rediseWords);
+    } else {
+      let magnets = pickWords(allWords);
+      // saveWords(magnets);
+
+      return magnets;
     }
-    return redisWords ?? getWords(allWords);
+
+    // return redisWords ?? pickWords(allWords);
   });
 
+  const saveWords = (arr) => {
+     context.redis.set(`words_{context.postId}`, JSON.stringify(arr));
+  };
 
-  //     // setWebviewVisible(true);
-      context.ui.webView.postMessage('myWebView', {
-        type: 'initialData',
-        data: {
-          username: username,
-          currentCounter: counter,
-          words: words
-        },
-      });
 
-  // // Create a reactive state for web view visibility
-  // // const [webviewVisible, setWebviewVisible] = useState(false);
+  context.ui.webView.postMessage('myWebView', {
+    type: 'initialData',
+    data: {
+      username: username,
+      currentCounter: counter,
+      words: words
+    },
+  });
 
   // When the web view invokes `window.parent.postMessage` this function is called
   const onMessage = async (msg: WebViewMessage) => {
@@ -101,16 +81,16 @@ export const App = (context: Devvit.Context): JSX.Element => {
     }
   };
 
- return (
-  <vstack large height="100%">
-    <webview
-      id="myWebView"
-      url="page.html"
-      onMessage={(msg) => onMessage(msg as WebViewMessage)}
-      grow
-      height="100%"
-    />
-  </vstack>
+  return (
+    <vstack large height="100%">
+      <webview
+        id="myWebView"
+        url="page.html"
+        onMessage={(msg) => onMessage(msg as WebViewMessage)}
+        grow
+        height="100%"
+      />
+    </vstack>
   );
 
 };
