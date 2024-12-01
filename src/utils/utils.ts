@@ -4,13 +4,14 @@ function shuffle(arr) {
 
 export function pickWords (words) {
   let arr = [];
+  arr.push(...words.constants);
   arr.push(...shuffle(words.adjectives).slice(0, 15));
   arr.push(...shuffle(words.prepositions).slice(0, 10));
   arr.push(...shuffle(words.pronouns).slice(0, 10));
   arr.push(...shuffle(words.verbs).slice(0, 15));
   arr.push(...shuffle(words.nouns).slice(0, 15));
-  arr.push(...words.always);
   arr.sort();
+  arr.push(...words.suffixes);
 
   return arr;
 }
