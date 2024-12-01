@@ -1,7 +1,6 @@
-import './createPost.js';
-
-import { App } from './components/App.js';
 import { Devvit } from '@devvit/public-api';
+import './actions/createPost.js';
+import { App } from './components/App.js';
 
 Devvit.configure({
   redditAPI: true,
