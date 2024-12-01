@@ -46,17 +46,6 @@ export const App = (context: Devvit.Context): JSX.Element => {
     return redisWords ?? pickWords(allWords);
   });
 
-
-  context.ui.webView.postMessage('myWebView', {
-    type: 'initialData',
-    data: {
-      username: username,
-      currentCounter: counter,
-      words: words
-    },
-  });
-
-  // When the web view invokes `window.parent.postMessage` this function is called
   const onMessage = async (msg: WebViewMessage) => {
     switch (msg.type) {
       case 'setCounter':
@@ -70,6 +59,15 @@ export const App = (context: Devvit.Context): JSX.Element => {
         setCounter(msg.data.newCounter);
         break;
       case 'initialData':
+        context.ui.webView.postMessage('myWebView', {
+          type: 'initialData',
+          data: {
+            username: username,
+            currentCounter: counter,
+            words: words
+          },
+        });
+        break;
       case 'updateCounter':
         break;
 

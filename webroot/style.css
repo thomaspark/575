@@ -102,6 +102,25 @@ pre {
   margin: 0;
 }
 
+#magnets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.magnet {
+  display: inline-block;
+  padding: 2px 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.magnet:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 @media (max-width: 640px) {
   body {
     padding: 0.75rem;

@@ -7,6 +7,13 @@ class App {
     const counterLabel = document.querySelector('#counter');
     var counter = 0;
 
+    window.addEventListener('load', (ev) => {
+      window.parent?.postMessage(
+        { type: 'initialData', data: { } },
+        '*'
+      );
+    });
+
     // When the Devvit app sends a message with `context.ui.webView.postMessage`, this will be triggered
     window.addEventListener('message', (ev) => {
       const { type, data } = ev.data;
@@ -24,6 +31,15 @@ class App {
           usernameLabel.innerText = username;
           counterLabel.innerText = counter = currentCounter;
           console.log(message.data.words);
+
+          let magnets = document.querySelector('#magnets');
+
+          message.data.words.forEach(word => {
+            let magnet = document.createElement('span');
+            magnet.classList.add('magnet');
+            magnet.innerText = word;
+            magnets.appendChild(magnet);
+          });
         }
 
         // Update counter
