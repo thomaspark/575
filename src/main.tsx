@@ -1,7 +1,7 @@
 import './createPost.js';
 
 import { App } from './components/App.js';
-import { Devvit, useState } from '@devvit/public-api';
+import { Devvit } from '@devvit/public-api';
 
 Devvit.configure({
   redditAPI: true,
@@ -9,9 +9,17 @@ Devvit.configure({
 });
 
 Devvit.addCustomPostType({
-  name: 'Webview Example',
+  name: 'Magnetry',
+  description: 'Magnetic Poetry!',
   height: 'tall',
   render: App
 });
+
+// Devvit.addTrigger({
+//   event: 'PostCreate', // Event name from above
+//   onEvent: async (event) => {
+//     console.log(`Received OnPostSubmit event:\n${JSON.stringify(event)}`);
+//   },
+// });
 
 export default Devvit;

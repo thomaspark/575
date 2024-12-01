@@ -32,22 +32,19 @@ export const App = (context: Devvit.Context): JSX.Element => {
 
   const [words, setWords] = useState(async () => {
     const redisWords = await context.redis.get(`words_${context.postId}`);
+    console.log(redisWords);
 
     if (redisWords) {
-      return JSON.parse(rediseWords);
+      return JSON.parse(redisWords);
     } else {
       let magnets = pickWords(allWords);
-      // saveWords(magnets);
+      await context.redis.set(`words_${context.postId}`, JSON.stringify(magnets));
 
       return magnets;
     }
 
-    // return redisWords ?? pickWords(allWords);
+    return redisWords ?? pickWords(allWords);
   });
-
-  const saveWords = (arr) => {
-     context.redis.set(`words_{context.postId}`, JSON.stringify(arr));
-  };
 
 
   context.ui.webView.postMessage('myWebView', {
