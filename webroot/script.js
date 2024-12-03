@@ -18,6 +18,15 @@ class App {
       });
     };
 
+    const addMagnet = (e) => {
+      let target = [...lines][line].querySelector('.magnets');
+      let clone = e.target.cloneNode(true);
+      clone.addEventListener('click', (e) => {
+        e.target.remove();
+      });
+      target.appendChild(clone);
+    }
+
     window.addEventListener('load', (ev) => {
       window.parent?.postMessage(
         { type: 'initialData', data: { } },
@@ -45,19 +54,13 @@ class App {
 
           let magnets = document.querySelector('#magnets');
 
-          message.data.words.forEach(word => {
+          message.data.words.forEach((obj, i) => {
             let magnet = document.createElement('span');
             magnet.classList.add('magnet');
-            magnet.innerText = word;
-            magnet.addEventListener('click', (e) => {
-              let target = [...lines][line].querySelector('.magnets');
-              let clone = e.target.cloneNode(true);
-              clone.addEventListener('click', (e) => {
-                console.log('remove', e.target);
-                e.target.remove();
-              });
-              target.appendChild(clone);
-            });
+            magnet.innerText = obj.word;
+            magnet.setAttribute('word', obj.word);
+            magnet.setAttribute('syllables', obj.syllables);
+            magnet.addEventListener('click', addMagnet);
             magnets.appendChild(magnet);
           });
 
