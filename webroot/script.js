@@ -5,7 +5,18 @@ class App {
     const decreaseButton = document.querySelector('#btn-decrease');
     const usernameLabel = document.querySelector('#username');
     const counterLabel = document.querySelector('#counter');
+    const poem = document.querySelector('#poem');
+    const lines = document.querySelectorAll('#poem .line');
+
+    const syllables = [5, 7, 5];
+    let line = 0;
     var counter = 0;
+
+    const updateSyllables = (syllables) => {
+      syllables.forEach((syllable, i) => {
+        poem.querySelector(`:nth-child(${i+1})`).innerText(syllable);
+      });
+    };
 
     window.addEventListener('load', (ev) => {
       window.parent?.postMessage(
@@ -38,6 +49,15 @@ class App {
             let magnet = document.createElement('span');
             magnet.classList.add('magnet');
             magnet.innerText = word;
+            magnet.addEventListener('click', (e) => {
+              let target = [...lines][line].querySelector('.magnets');
+              let clone = e.target.cloneNode(true);
+              clone.addEventListener('click', (e) => {
+                console.log('remove', e.target);
+                e.target.remove();
+              });
+              target.appendChild(clone);
+            });
             magnets.appendChild(magnet);
           });
 

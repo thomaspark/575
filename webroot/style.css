@@ -107,23 +107,45 @@ pre {
   margin: 0;
 }
 
-#magnets {
+#poem .line {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+}
+
+#poem .syllables {
+  font-size: 0.8rem;
+}
+
+#poem .line.active .syllables {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#magnets,
+#poem .magnets {
+  display: flex;
   gap: 0.5rem;
 }
 
-.magnet {
+#magnets {
+  flex-wrap: wrap;
+}
+
+.magnet,
+.syllables {
   display: inline-block;
   padding: 2px 4px;
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  font-size: 0.8rem;
+  user-select: none;
   cursor: pointer;
 }
 
 .magnet:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 @media (max-width: 640px) {
