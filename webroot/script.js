@@ -40,6 +40,8 @@ class App {
             magnet.innerText = word;
             magnets.appendChild(magnet);
           });
+
+          document.body.classList.remove('hide');
         }
 
         // Update counter
