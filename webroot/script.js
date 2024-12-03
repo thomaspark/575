@@ -13,18 +13,42 @@ class App {
     var counter = 0;
 
     const updateSyllables = (syllables) => {
-      syllables.forEach((syllable, i) => {
-        poem.querySelector(`:nth-child(${i+1})`).innerText(syllable);
+      syllables.forEach((s, i) => {
+        let line = poem.querySelector(`.line:nth-child(${i+1}) .syllables`);
+        line.innerText = s;
       });
     };
 
-    const addMagnet = (e) => {
-      let target = [...lines][line].querySelector('.magnets');
-      let clone = e.target.cloneNode(true);
-      clone.addEventListener('click', (e) => {
-        e.target.remove();
+    const updateLine = (target) => {
+      let syllables = poem.querySelectorAll('.syllables');
+      syllables.forEach((s) => {
+        s.classList.remove('active');
       });
-      target.appendChild(clone);
+
+      let active = target.closest('.line').querySelector('.syllables');
+      active.classList.add('active');
+      line = active.getAttribute('data-line');
+    }
+
+    const addMagnet = (e) => {
+      let magnet = e.target;
+      let s = magnet.getAttribute('syllables');
+
+      if (syllables[line] - s >= 0) {
+        syllables[line] -= parseInt(s);
+        updateSyllables(syllables);
+
+        let container = [...lines][line].querySelector('.magnets');
+        let clone = magnet.cloneNode(true);
+        clone.addEventListener('click', (e) => {
+          updateLine(e.target);
+          let s = e.target.getAttribute('syllables');
+          syllables[line] += parseInt(s);
+          updateSyllables(syllables);
+          e.target.remove();
+        });
+        container.appendChild(clone);
+      }
     }
 
     window.addEventListener('load', (ev) => {
@@ -65,6 +89,14 @@ class App {
           });
 
           document.body.classList.remove('hide');
+
+
+          let syllables = poem.querySelectorAll('.syllables');
+          syllables.forEach(s => {
+            s.addEventListener('click', (e) => {
+              updateLine(e.target);
+            });
+          });
         }
 
         // Update counter

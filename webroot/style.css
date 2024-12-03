@@ -115,10 +115,12 @@ pre {
 }
 
 #poem .syllables {
+  min-width: 1rem;
   font-size: 0.8rem;
+  text-align: center;
 }
 
-#poem .line.active .syllables {
+#poem .syllables.active {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
