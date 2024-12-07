@@ -17,6 +17,8 @@ class App {
         let line = poem.querySelector(`.line:nth-child(${i+1}) .syllables`);
         line.innerText = s;
       });
+
+      disableWords();
     };
 
     const updateLine = (target) => {
@@ -28,15 +30,14 @@ class App {
       let active = target.closest('.line').querySelector('.syllables');
       active.classList.add('active');
       line = active.getAttribute('data-line');
-    }
+    };
 
-    const addMagnet = (e) => {
+    const clickWord = (e) => {
       let magnet = e.target;
       let s = magnet.getAttribute('syllables');
 
       if (syllables[line] - s >= 0) {
         syllables[line] -= parseInt(s);
-        updateSyllables(syllables);
 
         let container = [...lines][line].querySelector('.magnets');
         let clone = magnet.cloneNode(true);
@@ -48,8 +49,29 @@ class App {
           e.target.remove();
         });
         container.appendChild(clone);
+        updateSyllables(syllables);
       }
-    }
+    };
+
+    const clickLine = (e) => {
+      updateLine(e.target);
+      disableWords();
+    };
+
+    const disableWords = (e) => {
+      let words = document.querySelectorAll('#words .magnet');
+      let syllablesLeft = syllables[line];
+
+      words.forEach(word => {
+        let s = word.getAttribute('syllables');
+
+        if (s > syllablesLeft) {
+          word.classList.add('disabled');
+        } else {
+          word.classList.remove('disabled');
+        }
+      });
+    };
 
     window.addEventListener('load', (ev) => {
       window.parent?.postMessage(
@@ -76,7 +98,7 @@ class App {
           counterLabel.innerText = counter = currentCounter;
           console.log(message.data.words);
 
-          let magnets = document.querySelector('#magnets');
+          let magnets = document.querySelector('#words');
 
           message.data.words.forEach((obj, i) => {
             let magnet = document.createElement('span');
@@ -84,7 +106,7 @@ class App {
             magnet.innerText = obj.word;
             magnet.setAttribute('word', obj.word);
             magnet.setAttribute('syllables', obj.syllables);
-            magnet.addEventListener('click', addMagnet);
+            magnet.addEventListener('click', clickWord);
             magnets.appendChild(magnet);
           });
 
@@ -93,9 +115,7 @@ class App {
 
           let syllables = poem.querySelectorAll('.syllables');
           syllables.forEach(s => {
-            s.addEventListener('click', (e) => {
-              updateLine(e.target);
-            });
+            s.addEventListener('click', clickLine);
           });
         }
 

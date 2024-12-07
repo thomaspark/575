@@ -6,25 +6,34 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta charset="UTF-8" />
-    <title>Magnetry Web View</title>
+    <title>Reku Web View</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="hide">
-    <div id="magnets"></div>
-    <div id="poem">
-      <div class="line">
-        <div class="syllables active" data-line="0">5</div>
-        <div class="magnets"></div>
+    <section>
+      <h2>Create your own 5-7-5 haiku poem using the word bank below. Words change daily!</h2>
+    </section>
+    <section>
+      <h3>Word Bank</h3>
+      <div id="words"></div>
+    </section>
+    <section class="poem">
+      <h3>Poem</h3>
+      <div id="poem">
+        <div class="line">
+          <div class="syllables active" data-line="0">5</div>
+          <div class="magnets"></div>
+        </div>
+        <div class="line">
+          <div class="syllables" data-line="1">7</div>
+          <div class="magnets"></div>
+        </div>
+        <div class="line">
+          <div class="syllables" data-line="2">5</div>
+          <div class="magnets"></div>
+        </div>
       </div>
-      <div class="line">
-        <div class="syllables" data-line="1">7</div>
-        <div class="magnets"></div>
-      </div>
-      <div class="line">
-        <div class="syllables" data-line="2">5</div>
-        <div class="magnets"></div>
-      </div>
-    </div>
+    </section>
     <h3>Your username is <span id="username">Guest</span></h3>
     <h3>Current counter is at: <span id="counter">0</span></h3>
     <div class="button-container">
