@@ -11,7 +11,7 @@ Devvit.addMenuItem({
   onPress: async (_event, context) => {
     const { reddit, ui } = context;
     const subreddit = await reddit.getCurrentSubreddit();
-    const d = new Date().toLocaleDateString('en-CA');
+    const d = new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
 
     const post = await reddit.submitPost({
       title: `Magnetry: ${d}`,
