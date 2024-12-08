@@ -182,7 +182,7 @@ pre {
 
 #words {
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content flex-start;
 }
 
 .magnet,
