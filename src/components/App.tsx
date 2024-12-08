@@ -29,7 +29,6 @@ export const App = (context: Devvit.Context): JSX.Element => {
 
   const [words, setWords] = useState(async () => {
     const redisWords = await context.redis.get(`words_${context.postId}`);
-    console.log(redisWords);
 
     if (redisWords) {
       return JSON.parse(redisWords);
@@ -39,8 +38,6 @@ export const App = (context: Devvit.Context): JSX.Element => {
 
       return magnets;
     }
-
-    return redisWords ?? pickWords(allWords);
   });
 
   const onMessage = async (msg: WebViewMessage) => {
