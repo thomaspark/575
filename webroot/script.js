@@ -7,10 +7,20 @@ class App {
     const counterLabel = document.querySelector('#counter');
     const poem = document.querySelector('#poem');
     const lines = document.querySelectorAll('#poem .line');
+    const title = document.querySelector('#title');
+    const submit = document.querySelector('#submit');
 
     const syllables = [5, 7, 5];
     let line = 0;
     var counter = 0;
+
+    const updateSubmit = () => {
+      if (title.value.length > 0 && syllables.every(s => s === 0)) {
+        submit.disabled = false;
+      } else {
+        submit.disabled = true;
+      }
+    }
 
     const updateSyllables = (syllables) => {
       syllables.forEach((s, i) => {
@@ -18,7 +28,8 @@ class App {
         line.innerText = s;
       });
 
-      disableWords();
+      updateSubmit();
+      updateWords();
     };
 
     const updateLine = (target) => {
@@ -32,12 +43,27 @@ class App {
       line = active.getAttribute('data-line');
     };
 
+    const updateWords = (e) => {
+      let words = document.querySelectorAll('#words .magnet');
+      let syllablesLeft = syllables[line];
+
+      words.forEach(word => {
+        let s = word.getAttribute('syllables');
+
+        if (s > syllablesLeft) {
+          word.classList.add('disabled');
+        } else {
+          word.classList.remove('disabled');
+        }
+      });
+    };
+
     const clickWord = (e) => {
       let magnet = e.target;
       let s = magnet.getAttribute('syllables');
 
       if (syllables[line] - s >= 0) {
-        syllables[line] -= parseInt(s);
+        syllables[line] = Math.max(syllables[line] - parseInt(s), 0);
 
         let container = [...lines][line].querySelector('.magnets');
         let clone = magnet.cloneNode(true);
@@ -55,27 +81,62 @@ class App {
 
     const clickLine = (e) => {
       updateLine(e.target);
-      disableWords();
+      updateWords();
     };
 
-    const disableWords = (e) => {
-      let words = document.querySelectorAll('#words .magnet');
-      let syllablesLeft = syllables[line];
+    const loadWords = (words) => {
+      let magnets = document.querySelector('#words');
 
-      words.forEach(word => {
-        let s = word.getAttribute('syllables');
+      words.forEach((obj, i) => {
+        let magnet = document.createElement('span');
+        magnet.classList.add('magnet');
+        magnet.innerText = obj.word;
 
-        if (s > syllablesLeft) {
-          word.classList.add('disabled');
-        } else {
-          word.classList.remove('disabled');
+        if (Array.from(obj.word)[0] == '-') {
+          magnet.setAttribute('suffix', true);
         }
+
+        magnet.setAttribute('word', obj.word);
+        magnet.setAttribute('syllables', obj.syllables);
+        magnet.addEventListener('click', clickWord);
+        magnets.appendChild(magnet);
       });
+
+      updateWords();
     };
+
+    const formatPoem = () => {
+      let poem = '';
+
+      poem += `> **${title.value}**\n>\n`;
+
+      poem += [...lines].reduce((acc, curr) => {
+        let magnets = curr.querySelectorAll('.magnet');
+        let text = '> ';
+        text += [...magnets].map((magnet, i) => {
+          let word = magnet.getAttribute('word');
+
+          if (magnet.getAttribute('suffix')) {
+            word = word.substring(1);
+          }
+
+          if (i === 0 || magnet.getAttribute('suffix')) {
+            return word;
+          } else {
+            return ' ' + word;
+          }
+        }).join('');
+        text += '\n\n';
+
+        return acc + text;
+      }, '');
+
+      return poem;
+    }
 
     window.addEventListener('load', (ev) => {
       window.parent?.postMessage(
-        { type: 'initialData', data: { } },
+        { type: 'INIT', data: { } },
         '*'
       );
     });
@@ -96,22 +157,11 @@ class App {
           const { username, currentCounter } = message.data;
           usernameLabel.innerText = username;
           counterLabel.innerText = counter = currentCounter;
-          console.log(message.data.words);
+          // console.log(message.data.words);
 
-          let magnets = document.querySelector('#words');
-
-          message.data.words.forEach((obj, i) => {
-            let magnet = document.createElement('span');
-            magnet.classList.add('magnet');
-            magnet.innerText = obj.word;
-            magnet.setAttribute('word', obj.word);
-            magnet.setAttribute('syllables', obj.syllables);
-            magnet.addEventListener('click', clickWord);
-            magnets.appendChild(magnet);
-          });
+          loadWords(message.data.words);
 
           document.body.classList.remove('hide');
-
 
           let syllables = poem.querySelectorAll('.syllables');
           syllables.forEach(s => {
@@ -125,6 +175,17 @@ class App {
           counterLabel.innerText = counter = currentCounter;
         }
       }
+    });
+
+    title.addEventListener('keyup', (e) => {
+      updateSubmit();
+    });
+
+    submit.addEventListener('click', (e) => {
+      window.parent?.postMessage(
+        { type: 'SUBMIT', data: { poem: formatPoem() } },
+        '*'
+      );
     });
 
     increaseButton.addEventListener('click', () => {

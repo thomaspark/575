@@ -89,6 +89,11 @@ button {
   margin: 0;
 }
 
+button[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

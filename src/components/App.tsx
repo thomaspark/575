@@ -5,12 +5,16 @@ import allWords from '../../data/words.json';
 export const App = (context: Devvit.Context): JSX.Element => {
   type WebViewMessage =
     | {
-        type: 'initialData';
+        type: 'INIT';
         data: { username: string; currentCounter: number; words: array };
       }
     | {
         type: 'setCounter';
         data: { newCounter: number; words: array };
+      }
+    | {
+        type: 'SUBMIT';
+        data: { poem: string };
       }
     | {
         type: 'updateCounter';
@@ -52,7 +56,7 @@ export const App = (context: Devvit.Context): JSX.Element => {
         });
         setCounter(msg.data.newCounter);
         break;
-      case 'initialData':
+      case 'INIT':
         context.ui.webView.postMessage('myWebView', {
           type: 'initialData',
           data: {
@@ -61,6 +65,25 @@ export const App = (context: Devvit.Context): JSX.Element => {
             words: words
           },
         });
+        break;
+      case 'SUBMIT':
+        const currUser = await context.reddit.getCurrentUser();
+        let author;
+
+        if (currUser?.username) {
+          author = `[${currUser.username}](https://reddit.com/user/${currUser.username}/)`;
+        } else {
+          author = 'anon';
+        }
+
+        const poem = msg.data.poem + `\n\n– ${author}`;
+        const comment = await context.reddit.submitComment({
+          id: context.postId, 
+          text: poem,
+        });
+
+        context.ui.showToast('Poem submitted.');
+        // context.ui.navigateTo(comment);
         break;
       case 'updateCounter':
         break;
