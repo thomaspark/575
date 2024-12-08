@@ -182,6 +182,8 @@ class App {
     });
 
     submit.addEventListener('click', (e) => {
+      e.target.disabled = true;
+      
       window.parent?.postMessage(
         { type: 'SUBMIT', data: { poem: formatPoem() } },
         '*'
