@@ -38,7 +38,7 @@ section {
 }
 
 section + section {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 h1 {
@@ -122,28 +122,34 @@ pre {
 }
 
 #poem .line {
+  position: relative;
   display: grid;
-  grid-template-columns: 2rem 1fr;
+  grid-template-areas: "syllables words";
+  grid-template-columns: 2rem 1fr 0;
   align-items: center;
   gap: 0.5rem;
   height: 2rem;
 }
 
 #poem .magnets {
-/*  width: 300px;*/
   height: 100%;
 }
 
-#poem .magnets:empty:before {
-  content: "";
-  width: 350px;
+#poem .shadow {
+  display: none;
+  grid-area: words;
+  width: 250px;
   height: 100%;
   background-color: rgba(0, 0, 0 , 0.1);
   border-radius: var(--border-radius);
 }
 
-#poem .line:nth-child(2) .magnets:empty:before {
-  width: 500px;
+#poem .line:nth-child(2) .shadow {
+  width: 350px;
+}
+
+#poem .magnets:empty + .shadow {
+  display: block;
 }
 
 #poem .syllables {
@@ -163,6 +169,7 @@ pre {
 #words,
 #poem .magnets {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   overflow: auto;
 }
@@ -186,6 +193,10 @@ pre {
 
 .syllables {
   border-radius: 50%;
+}
+
+.magnet {
+  height: fit-content;
 }
 
 .magnet.disabled {
