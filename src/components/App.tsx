@@ -9,26 +9,13 @@ export const App = (context: Devvit.Context): JSX.Element => {
         data: { username: string; currentCounter: number; words: array };
       }
     | {
-        type: 'setCounter';
-        data: { newCounter: number; words: array };
-      }
-    | {
         type: 'SUBMIT';
         data: { poem: string };
-      }
-    | {
-        type: 'updateCounter';
-        data: { currentCounter: number };
       };
 
   const [username] = useState(async () => {
     const currUser = await context.reddit.getCurrentUser();
     return currUser?.username ?? 'anon';
-  });
-
-  const [counter, setCounter] = useState(async () => {
-    const redisCount = await context.redis.get(`counter_${context.postId}`);
-    return Number(redisCount ?? 0);
   });
 
   const [words, setWords] = useState(async () => {
@@ -46,36 +33,17 @@ export const App = (context: Devvit.Context): JSX.Element => {
 
   const onMessage = async (msg: WebViewMessage) => {
     switch (msg.type) {
-      case 'setCounter':
-        await context.redis.set(`counter_${context.postId}`, msg.data.newCounter.toString());
-        context.ui.webView.postMessage('myWebView', {
-          type: 'updateCounter',
-          data: {
-            currentCounter: msg.data.newCounter,
-          },
-        });
-        setCounter(msg.data.newCounter);
-        break;
       case 'INIT':
         context.ui.webView.postMessage('myWebView', {
           type: 'initialData',
           data: {
-            username: username,
-            currentCounter: counter,
-            words: words
+            words: words,
+            username: username
           },
         });
         break;
       case 'SUBMIT':
-        const currUser = await context.reddit.getCurrentUser();
-        let author;
-
-        if (currUser?.username) {
-          author = `[${currUser.username}](https://reddit.com/user/${currUser.username}/)`;
-        } else {
-          author = 'anon';
-        }
-
+        const author = username === 'anon' ? 'anon' : `[${currUser.username}](https://reddit.com/user/${currUser.username}/)`;
         const poem = msg.data.poem + `\n\n– ${author}`;
         const comment = await context.reddit.submitComment({
           id: context.postId, 
@@ -85,9 +53,6 @@ export const App = (context: Devvit.Context): JSX.Element => {
         context.ui.showToast('Poem submitted.');
         // context.ui.navigateTo(comment);
         break;
-      case 'updateCounter':
-        break;
-
       default:
         throw new Error(`Unknown message type: ${msg satisfies never}`);
     }

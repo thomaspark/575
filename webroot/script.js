@@ -1,10 +1,5 @@
 class App {
   constructor() {
-    const output = document.querySelector('#messageOutput');
-    const increaseButton = document.querySelector('#btn-increase');
-    const decreaseButton = document.querySelector('#btn-decrease');
-    const usernameLabel = document.querySelector('#username');
-    const counterLabel = document.querySelector('#counter');
     const poem = document.querySelector('#poem');
     const lines = document.querySelectorAll('#poem .line');
     const title = document.querySelector('#title');
@@ -12,7 +7,6 @@ class App {
 
     const syllables = [5, 7, 5];
     let line = 0;
-    var counter = 0;
 
     const updateSubmit = () => {
       if (title.value.length > 0 && syllables.every(s => s === 0)) {
@@ -141,25 +135,15 @@ class App {
       );
     });
 
-    // When the Devvit app sends a message with `context.ui.webView.postMessage`, this will be triggered
     window.addEventListener('message', (ev) => {
       const { type, data } = ev.data;
 
-      // Reserved type for messages sent via `context.ui.webView.postMessage`
       if (type === 'devvit-message') {
         const { message } = data;
 
-        // Always output full message
-        output.replaceChildren(JSON.stringify(message, undefined, 2));
-
-        // Load initial data
         if (message.type === 'initialData') {
-          const { username, currentCounter } = message.data;
-          usernameLabel.innerText = username;
-          counterLabel.innerText = counter = currentCounter;
-          // console.log(message.data.words);
-
-          loadWords(message.data.words);
+          const { words, username } = message.data;
+          loadWords(words);
 
           document.body.classList.remove('hide');
 
@@ -167,12 +151,6 @@ class App {
           syllables.forEach(s => {
             s.addEventListener('click', clickLine);
           });
-        }
-
-        // Update counter
-        if (message.type === 'updateCounter') {
-          const { currentCounter } = message.data;
-          counterLabel.innerText = counter = currentCounter;
         }
       }
     });
@@ -183,25 +161,9 @@ class App {
 
     submit.addEventListener('click', (e) => {
       e.target.disabled = true;
-      
+
       window.parent?.postMessage(
         { type: 'SUBMIT', data: { poem: formatPoem() } },
-        '*'
-      );
-    });
-
-    increaseButton.addEventListener('click', () => {
-      // Sends a message to the Devvit app
-      window.parent?.postMessage(
-        { type: 'setCounter', data: { newCounter: Number(counter + 1) } },
-        '*'
-      );
-    });
-
-    decreaseButton.addEventListener('click', () => {
-      // Sends a message to the Devvit app
-      window.parent?.postMessage(
-        { type: 'setCounter', data: { newCounter: Number(counter - 1) } },
         '*'
       );
     });
