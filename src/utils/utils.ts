@@ -1,4 +1,9 @@
-function shuffle(arr) {
+interface Word {
+  word: string;
+  syllables: number;
+}
+
+function shuffle(arr: Word[]) {
   return arr.sort(() => 0.5 - Math.random())
 }
 
