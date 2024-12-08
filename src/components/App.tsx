@@ -43,7 +43,7 @@ export const App = (context: Devvit.Context): JSX.Element => {
         });
         break;
       case 'SUBMIT':
-        const author = username === 'anon' ? 'anon' : `[${currUser.username}](https://reddit.com/user/${currUser.username}/)`;
+        const author = username === 'anon' ? 'anon' : `[${username}](https://reddit.com/user/${username}/)`;
         const poem = msg.data.poem + `\n\n– ${author}`;
         const comment = await context.reddit.submitComment({
           id: context.postId, 
