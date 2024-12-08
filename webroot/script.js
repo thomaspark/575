@@ -146,13 +146,12 @@ class App {
           loadWords(words);
 
           document.body.classList.remove('hide');
-
-          let syllables = poem.querySelectorAll('.syllables');
-          syllables.forEach(s => {
-            s.addEventListener('click', clickLine);
-          });
         }
       }
+    });
+
+    poem.querySelectorAll('.syllables, .shadow').forEach(s => {
+      s.addEventListener('click', clickLine);
     });
 
     title.addEventListener('keyup', (e) => {

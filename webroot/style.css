@@ -147,6 +147,7 @@ pre {
   height: 100%;
   background-color: rgba(0, 0, 0 , 0.1);
   border-radius: var(--border-radius);
+  cursor: pointer;
 }
 
 #poem .line:nth-child(2) .shadow {
