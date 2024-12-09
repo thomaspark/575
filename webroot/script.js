@@ -37,20 +37,6 @@ class App {
         }
       });
 
-      if (syllables.every(s => s === 0)) {
-        if (title.value.length > 0) {
-          submit.classList.add('blink');
-          setTimeout(() => {
-            submit.classList.remove('blink');
-          }, 150);
-        } else {
-          title.classList.add('blink');
-          setTimeout(() => {
-            title.classList.remove('blink');
-          }, 150);
-        }
-      }
-
       updateSubmit();
       updateWords();
     };
