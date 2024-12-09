@@ -1,17 +1,29 @@
 :root {
-  --primary-color: #6b7280;
-  --background-color: #f3f4f6;
-  --text-color: #374151;
+  --CoolGray-50: #f9fafa;
+  --CoolGray-200: #dbe1e4;
+  --CoolGray-250: #dae0e3;
+  --CoolGray-300: #d1dadd;
+  --CoolGray-350: #b7c5c8;
+  --CoolGray-400: #a0b1b5;
+  --CoolGray-500: #576f76;
+  --CoolGray-600: #33464c;
+  --CoolGray-650: #2a3d42;
+  --CoolGray-700: #213237;
+  --CoolGray-750: #1a282d;
+  --CoolGray-800: #131f24;
+  --PureGray-450: #919191;
+  --Orangered-500: #d93b01;
+  --Orangered-600: #721e01;
+  --MintGreen-600: #00443c;
+  --KiwiGreen-500: #0c8a00;
+  --KiwiGreen-600: #096100;
+  --KiwiGreen-700: #094a01;
+  --Green-500: #01a484;
+  --Red-600: #a50016;
+  --Red-700: #7e0011;
   --border-radius-sm: 6px;
   --border-radius-md: 2rem;
-  --shadow-color: #faf9f8;
   --poem-height: 175px;
-  --red: #e95c58;
-  --blue: #0045AC;
-  --green: #649398;
-  --green-dark: #1f3f4d;
-  --magnet-color: #eeece3;
-/*  --shadow: 0 1px 2px rgba(0, 0, 0, 0.1);*/
   font-size: 0.8rem;
 }
 
@@ -30,9 +42,9 @@ body {
   align-items: center;
   padding: 2rem;
   margin: 0 auto;
-/*  background-color: var(--background-color);*/
-/*  color: var(--text-color);*/
+  background-color: var(--CoolGray-200);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.3;
   transition: opacity 0.2s;
 }
@@ -53,8 +65,8 @@ h1 {
 
 h2 {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 h3 {
@@ -67,14 +79,14 @@ h3 {
 
 input[type="text"] {
   padding: 0.625rem 1.25em;
-  background-color: #e5ebee;
+  background-color: var(--CoolGray-50);
   border: none;
   border-radius: var(--border-radius-md);
 }
 
 button {
   padding: 0.625rem 1.25em;
-  background-color: var(--blue);
+  background-color: #0045AC;
   border: none;
   border-radius: var(--border-radius-md);
   font-size: 12px;
@@ -89,6 +101,10 @@ button:hover {
 button[disabled] {
   opacity: 0.5;
   pointer-events: none;
+}
+
+a {
+  color: var(--Green-500);
 }
 
 section {
@@ -112,30 +128,48 @@ section.poem {
 }
 
 .asterisk {
-  color: #bc0117;
+  color: var(--Orangered-500);
 }
 
 .magnet,
 .syllables {
   display: inline-block;
   padding: 4px 8px;
-  background-color: rgba(0, 0, 0, 0.1);
-  background-color: var(--magnet-color);
-/*  border: 1px solid rgba(0, 0, 0, 0.2);*/
-  border-radius: var(--border-radius-sm);
+  color: #fff;
   word-break: keep-all;
-  color: rgba(0, 0, 0, 0.9);
   user-select: none;
   cursor: pointer;
-  transition: all 0.2;
+}
+
+.syllables {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 1rem;
+  height: 100%;
+  background-color: var(--CoolGray-350);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.syllables.active,
+.syllables:hover,
+.line:has(.shadow:hover) .syllables {
+  background-color: var(--Green-500);
+  color: #fff;
 }
 
 .magnet {
   height: fit-content;
+  background-color: var(--CoolGray-600);
+  border-radius: var(--border-radius-sm);
+  transition: 0.2 all;
 }
 
 .magnet.disabled {
-  opacity: 0.3;
+  opacity: 0.2;
   pointer-events: none;
 }
 
@@ -144,12 +178,22 @@ section.poem {
   color: #fff;
 }
 
-.syllables {
-  border-radius: 50%;
-}
-
 #submit {
   margin-left: 1rem;
+}
+
+#words {
+  display: flex;
+  justify-content flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+
+#words .magnet:hover {
+  background-color: var(--Green-500);
 }
 
 #poem {
@@ -171,37 +215,60 @@ section.poem {
 
 #poem .magnets {
   height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  overflow: auto;
 }
 
-#poem .shadow {
+#poem .magnet {
+  animation: blink 0.15s ease-in;
+}
+
+#poem .magnet:hover {
+  background-color: var(--Orangered-500);
+}
+
+.shadow {
   display: none;
   grid-area: words;
   width: 250px;
   height: 100%;
-  background-color: var(--shadow-color);
+  margin-left: 0.5rem;
+  background-color: var(--CoolGray-350);
   border-radius: var(--border-radius-sm);
   cursor: pointer;
 }
 
-#poem .line:nth-child(2) .shadow {
+.line:nth-child(2) .shadow {
   width: 350px;
 }
 
-#poem .magnets:empty + .shadow {
+.magnets:empty + .shadow {
   display: block;
 }
 
-#poem .syllables {
+.help {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+
+#help-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 1rem;
-  height: 100%;
-  background-color: var(--green);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--CoolGray-350);
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  user-select: none;
 }
 
 #help-btn:hover {
@@ -221,18 +288,18 @@ section.poem {
   color: rgb(87, 111, 118);
 }
 
-#words {
-  flex-wrap: wrap;
-  justify-content flex-start;
-  margin-bottom: 1rem;
+#help.hide {
+  display: none;
 }
 
-#words .magnet:hover {
-  background-color: var(--green);
-}
+@keyframes blink {
+  70% {
+    transform: scaleX(1.1);
+  }
 
-#poem .magnet:hover {
-  background-color: var(--red);
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 @media (max-width: 640px) {
@@ -240,12 +307,4 @@ section.poem {
   .syllables {
     padding: 2px 4px;
   }
-/*  body {
-    padding: 0.75rem;
-    gap: 0.5rem;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }*/
 }
