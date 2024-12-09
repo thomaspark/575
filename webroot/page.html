@@ -10,15 +10,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="hide">
-    <section>
-      <h2>Create your own 5-7-5 haiku poem using the word bank below. Words change daily!</h2>
-    </section>
-    <section>
-      <h3>Word Bank</h3>
+    <section class="words">
+      <h3>Words of the day</h3>
       <div id="words"></div>
     </section>
     <section class="poem">
-      <h3>Poem</h3>
+      <h3>Your poem</h3>
       <div id="poem">
         <div class="line">
           <div class="syllables active" data-line="0">5</div>
@@ -36,9 +33,9 @@
           <div class="shadow"></div>
         </div>
       </div>
-      <div>
-        <input id="title" type="text" placeholder="Poem Title">
-        <button id="submit" disabled>Submit</button>
+      <div class="title">
+        <input id="title" type="text" placeholder="Give it a title"><span class="asterisk">*</span>
+        <button id="submit" class="btn" disabled>Post as comment</button>
       </div>
     </section>
     <script type="application/javascript" src="script.js"></script>

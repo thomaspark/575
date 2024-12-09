@@ -19,6 +19,7 @@ class App {
     const updateSyllables = (syllables) => {
       syllables.forEach((s, i) => {
         let line = poem.querySelector(`.line:nth-child(${i+1}) .syllables`);
+        line.setAttribute('value', s);
 
         if (s === 0) {
           line.innerText = '✓';
@@ -66,6 +67,7 @@ class App {
 
         let container = [...lines][line].querySelector('.magnets');
         let clone = magnet.cloneNode(true);
+        clone.title = 'Remove';
         clone.addEventListener('click', (e) => {
           updateLine(e.target);
           let s = e.target.getAttribute('syllables');
@@ -97,6 +99,7 @@ class App {
 
         magnet.setAttribute('word', obj.word);
         magnet.setAttribute('syllables', obj.syllables);
+        magnet.title = 'Add';
         magnet.addEventListener('click', clickWord);
         magnets.appendChild(magnet);
       });
