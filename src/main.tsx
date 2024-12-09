@@ -8,8 +8,8 @@ Devvit.configure({
 });
 
 Devvit.addCustomPostType({
-  name: 'Magnetry',
-  description: 'Magnetic Poetry!',
+  name: '575',
+  description: 'The 575 Game',
   height: 'tall',
   render: App
 });

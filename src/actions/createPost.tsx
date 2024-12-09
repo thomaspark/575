@@ -6,7 +6,7 @@ Devvit.configure({
 });
 
 Devvit.addMenuItem({
-  label: 'Create New Magnetry Post',
+  label: 'Create New 575 Game',
   location: 'subreddit',
   onPress: async (_event, context) => {
     const { reddit, ui } = context;
@@ -14,7 +14,7 @@ Devvit.addMenuItem({
     const d = new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
 
     const post = await reddit.submitPost({
-      title: `Magnetry: ${d}`,
+      title: `575: ${d}`,
       subredditName: subreddit.name,
       textFallback: { text: `This post contains content not supported by old Reddit. [Click here to view the full post.](${post})` },
       preview: (
