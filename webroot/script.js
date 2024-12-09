@@ -19,7 +19,12 @@ class App {
     const updateSyllables = (syllables) => {
       syllables.forEach((s, i) => {
         let line = poem.querySelector(`.line:nth-child(${i+1}) .syllables`);
-        line.innerText = s;
+
+        if (s === 0) {
+          line.innerText = '✓';
+        } else {
+          line.innerText = s;
+        }
       });
 
       updateSubmit();
