@@ -86,16 +86,17 @@ input[type="text"] {
 
 button {
   padding: 0.625rem 1.25em;
-  background-color: #0045AC;
+  background-color: #025545;
   border: none;
   border-radius: var(--border-radius-md);
   font-size: 12px;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
 button:hover {
-  background-color: #003584;
+  background-color: #08a283;
 }
 
 button[disabled] {
