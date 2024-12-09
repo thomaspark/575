@@ -4,8 +4,13 @@
   --text-color: #374151;
   --border-radius-sm: 6px;
   --border-radius-md: 2rem;
-  --gray-light: #f6f8f9;
+  --shadow-color: #faf9f8;
   --poem-height: 175px;
+  --red: #e95c58;
+  --blue: #0045AC;
+  --green: #649398;
+  --green-dark: #1f3f4d;
+  --magnet-color: #eeece3;
 /*  --shadow: 0 1px 2px rgba(0, 0, 0, 0.1);*/
   font-size: 0.8rem;
 }
@@ -69,7 +74,7 @@ input[type="text"] {
 
 button {
   padding: 0.625rem 1.25em;
-  background-color: #0045AC;
+  background-color: var(--blue);
   border: none;
   border-radius: var(--border-radius-md);
   font-size: 12px;
@@ -110,19 +115,37 @@ section.poem {
   color: #bc0117;
 }
 
+.magnet,
+.syllables {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--magnet-color);
+/*  border: 1px solid rgba(0, 0, 0, 0.2);*/
+  border-radius: var(--border-radius-sm);
+  word-break: keep-all;
+  color: rgba(0, 0, 0, 0.9);
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2;
+}
+
 .magnet {
   height: fit-content;
-  transition: 0.2 all;
 }
 
 .magnet.disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   pointer-events: none;
 }
 
 .magnet:hover {
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;
+}
+
+.syllables {
+  border-radius: 50%;
 }
 
 #submit {
@@ -155,7 +178,7 @@ section.poem {
   grid-area: words;
   width: 250px;
   height: 100%;
-  background-color: var(--gray-light);
+  background-color: var(--shadow-color);
   border-radius: var(--border-radius-sm);
   cursor: pointer;
 }
@@ -174,14 +197,15 @@ section.poem {
   align-items: center;
   min-width: 1rem;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--green);
   font-size: 0.8rem;
   font-weight: 700;
+  color: #fff;
   text-align: center;
 }
 
 #poem .syllables.active {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--green-dark);
 }
 
 #words,
@@ -199,27 +223,11 @@ section.poem {
 }
 
 #words .magnet:hover {
-  background-color: green;
+  background-color: var(--green);
 }
 
 #poem .magnet:hover {
-  background-color: red;
-}
-
-.magnet,
-.syllables {
-  display: inline-block;
-  padding: 4px 8px;
-  background-color: rgba(0, 0, 0, 0.1);
-/*  border: 1px solid rgba(0, 0, 0, 0.2);*/
-  border-radius: var(--border-radius-sm);
-  word-break: keep-all;
-  user-select: none;
-  cursor: pointer;
-}
-
-.syllables {
-  border-radius: 50%;
+  background-color: var(--red);
 }
 
 @media (max-width: 640px) {
