@@ -222,10 +222,6 @@ section.poem {
   overflow: auto;
 }
 
-#poem .magnet {
-  animation: blink 0.15s ease-in;
-}
-
 #poem .magnet:hover {
   background-color: var(--Orangered-500);
 }
@@ -292,6 +288,10 @@ section.poem {
 
 #help.hide {
   display: none;
+}
+
+.blink {
+  animation: blink 0.15s ease-in;
 }
 
 @keyframes blink {

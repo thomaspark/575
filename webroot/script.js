@@ -25,6 +25,10 @@ class App {
 
         if (s === 0) {
           line.innerText = '✓';
+          line.classList.add('blink');
+          setTimeout(() => {
+            line.classList.remove('blink');
+          }, 150);
         } else {
           line.innerText = s;
         }
@@ -70,6 +74,7 @@ class App {
         let container = [...lines][line].querySelector('.magnets');
         let clone = magnet.cloneNode(true);
         clone.title = 'Remove';
+        clone.classList.add('blink');
         clone.addEventListener('click', (e) => {
           updateLine(e.target);
           let s = e.target.getAttribute('syllables');
