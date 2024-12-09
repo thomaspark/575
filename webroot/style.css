@@ -204,16 +204,21 @@ section.poem {
   text-align: center;
 }
 
-#poem .syllables.active {
-  background-color: var(--green-dark);
+#help-btn:hover {
+  background-color: var(--CoolGray-400);
 }
 
-#words,
-#poem .magnets {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  overflow: auto;
+#help {
+  position: absolute;
+  right: 1.8rem;
+  top: 1.8rem;
+  width: 400px;
+  max-width: calc(100vh - 4rem);
+  padding: 2rem 2rem 1rem;
+  background-color: var(--CoolGray-50);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  color: rgb(87, 111, 118);
 }
 
 #words {

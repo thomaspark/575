@@ -4,6 +4,8 @@ class App {
     const lines = document.querySelectorAll('#poem .line');
     const title = document.querySelector('#title');
     const submit = document.querySelector('#submit');
+    const helpBtn = document.querySelector('#help-btn');
+    const help = document.querySelector('#help');
 
     const syllables = [5, 7, 5];
     let line = 0;
@@ -156,6 +158,16 @@ class App {
           document.body.classList.remove('hide');
         }
       }
+    });
+
+    document.body.addEventListener('click', (e) => {
+      if (e.target.id !== 'help-btn') {
+        help.classList.add('hide');
+      }
+    });
+
+    helpBtn.addEventListener('click', (e) => {
+      help.classList.toggle('hide');
     });
 
     poem.querySelectorAll('.syllables, .shadow').forEach(s => {
