@@ -25,10 +25,13 @@ class App {
 
         if (s === 0) {
           line.innerText = '✓';
-          line.classList.add('blink');
-          setTimeout(() => {
-            line.classList.remove('blink');
-          }, 150);
+
+          if (line.classList.contains('active')) {
+            line.classList.add('blink');
+            setTimeout(() => {
+              line.classList.remove('blink');
+            }, 150);
+          }
         } else {
           line.innerText = s;
         }
