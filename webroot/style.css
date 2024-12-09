@@ -242,7 +242,7 @@ section.poem {
 }
 
 .line:nth-child(2) .shadow {
-  width: 350px;
+  width: 300px;
 }
 
 .magnets:empty + .shadow {
@@ -281,11 +281,13 @@ section.poem {
   top: 1.8rem;
   width: 400px;
   max-width: calc(100vw - 4rem);
+  max-height: calc(100vh - 6rem);
   padding: 2rem 2rem 1rem;
   background-color: var(--CoolGray-50);
   border-radius: var(--border-radius-sm);
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
   color: rgb(87, 111, 118);
+  overflow: auto;
 }
 
 #help.hide {
