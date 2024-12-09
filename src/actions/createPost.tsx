@@ -16,6 +16,7 @@ Devvit.addMenuItem({
     const post = await reddit.submitPost({
       title: `Magnetry: ${d}`,
       subredditName: subreddit.name,
+      textFallback: { text: `This post contains content not supported by old Reddit. [Click here to view the full post.](${post})` },
       preview: (
         <vstack height="100%" width="100%" alignment="middle center">
           <text size="large">Loading  ...{context.postId}</text>
