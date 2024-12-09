@@ -280,7 +280,7 @@ section.poem {
   right: 1.8rem;
   top: 1.8rem;
   width: 400px;
-  max-width: calc(100vh - 4rem);
+  max-width: calc(100vw - 4rem);
   padding: 2rem 2rem 1rem;
   background-color: var(--CoolGray-50);
   border-radius: var(--border-radius-sm);
