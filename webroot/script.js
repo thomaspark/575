@@ -112,7 +112,7 @@ class App {
     const formatPoem = () => {
       let poem = '';
 
-      poem += `> **${title.value}**\n>\n`;
+      poem += `> **${title.value}**\n> \n`;
 
       poem += [...lines].reduce((acc, curr) => {
         let magnets = curr.querySelectorAll('.magnet');
@@ -130,7 +130,7 @@ class App {
             return ' ' + word;
           }
         }).join('');
-        text += '\n\n';
+        text += '\n> \n';
 
         return acc + text;
       }, '');
