@@ -86,7 +86,7 @@ input[type="text"] {
 
 button {
   padding: 0.625rem 1.25em;
-  background-color: #025545;
+  background-color: #08a283;
   border: none;
   border-radius: var(--border-radius-md);
   font-size: 12px;
@@ -96,7 +96,7 @@ button {
 }
 
 button:hover {
-  background-color: #08a283;
+  background-color: #025545;
 }
 
 button[disabled] {
