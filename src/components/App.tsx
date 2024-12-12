@@ -6,7 +6,7 @@ export const App = (context: Devvit.Context): JSX.Element => {
   type WebViewMessage =
     | {
         type: 'INIT';
-        data: { username: string; currentCounter: number; words: array };
+        data: { };
       }
     | {
         type: 'SUBMIT';
