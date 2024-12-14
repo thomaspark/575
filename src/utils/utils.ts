@@ -10,6 +10,7 @@ function shuffle(arr: Word[]) {
 export function pickWords (words) {
   let arr = [];
   arr.push(...words.constants);
+  arr.push(...shuffle(words.adverbs).slice(0, 5));
   arr.push(...shuffle(words.adjectives).slice(0, 15));
   arr.push(...shuffle(words.prepositions).slice(0, 10));
   arr.push(...shuffle(words.pronouns).slice(0, 10));

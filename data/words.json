@@ -5,6 +5,10 @@
         "syllables": 1
     },
     {
+        "word": "am",
+        "syllables": 1
+    },
+    {
         "word": "an",
         "syllables": 1
     },
@@ -13,7 +17,7 @@
         "syllables": 1
     },
     {
-        "word": "by",
+        "word": "are",
         "syllables": 1
     },
     {
@@ -21,15 +25,23 @@
         "syllables": 1
     },
     {
+        "word": "is",
+        "syllables": 1
+    },
+    {
         "word": "me",
         "syllables": 1
     },
     {
-        "word": "of",
+        "word": "not",
         "syllables": 1
     },
     {
         "word": "the",
+        "syllables": 1
+    },
+    {
+        "word": "to",
         "syllables": 1
     },
     {
@@ -63,6 +75,10 @@
         "syllables": 1
     },
     {
+        "word": "-r",
+        "syllables": 1
+    },
+    {
         "word": "-s",
         "syllables": 0
     },
@@ -72,6 +88,116 @@
     },
     {
         "word": "-y",
+        "syllables": 1
+    }
+  ],
+  "adverbs": [
+    {
+        "word": "afterward",
+        "syllables": 3
+    },
+    {
+        "word": "also",
+        "syllables": 2
+    },
+    {
+        "word": "always",
+        "syllables": 2
+    },
+    {
+        "word": "at",
+        "syllables": 1
+    },
+    {
+        "word": "be",
+        "syllables": 1
+    },
+    {
+        "word": "by",
+        "syllables": 1
+    },
+    {
+        "word": "ever",
+        "syllables": 2
+    },
+    {
+        "word": "hence",
+        "syllables": 1
+    },
+    {
+        "word": "here",
+        "syllables": 1
+    },
+    {
+        "word": "how",
+        "syllables": 1
+    },
+    {
+        "word": "however",
+        "syllables": 3
+    },
+    {
+        "word": "instead",
+        "syllables": 2
+    },
+    {
+        "word": "likewise",
+        "syllables": 2
+    },
+    {
+        "word": "never",
+        "syllables": 2
+    },
+    {
+        "word": "next",
+        "syllables": 1
+    },
+    {
+        "word": "now",
+        "syllables": 1
+    },
+    {
+        "word": "of",
+        "syllables": 1
+    },
+    {
+        "word": "often",
+        "syllables": 2
+    },
+    {
+        "word": "once",
+        "syllables": 1
+    },
+    {
+        "word": "out",
+        "syllables": 1
+    },
+    {
+        "word": "seldom",
+        "syllables": 2
+    },
+    {
+        "word": "so",
+        "syllables": 1
+    },
+    {
+        "word": "there",
+        "syllables": 1
+    },
+    {
+        "word": "twice",
+        "syllables": 1
+    },
+    {
+        "word": "was",
+        "syllables": 1
+    },
+    {
+        "word": "were",
+        "syllables": 1
+    },
+    {
+        "word": "yet",
         "syllables": 1
     }
   ],
@@ -1398,6 +1524,10 @@
     },
     {
         "word": "ethnic",
+        "syllables": 2
+    },
+    {
+        "word": "even",
         "syllables": 2
     },
     {
@@ -4807,10 +4937,6 @@
         "syllables": 2
     },
     {
-        "word": "at",
-        "syllables": 1
-    },
-    {
         "word": "atop",
         "syllables": 2
     },
@@ -4961,10 +5087,6 @@
     {
         "word": "throughout",
         "syllables": 2
-    },
-    {
-        "word": "to",
-        "syllables": 1
     },
     {
         "word": "toward",
@@ -5569,10 +5691,6 @@
     {
         "word": "battle",
         "syllables": 2
-    },
-    {
-        "word": "be",
-        "syllables": 1
     },
     {
         "word": "beam",
