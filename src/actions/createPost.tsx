@@ -58,9 +58,13 @@ Devvit.addMenuItem({
   forUserType: 'moderator',
   onPress: async (_event, context) => {
     try {
+      const oldJobId = (await context.redis.get('jobId')) || '0';
+      await context.scheduler.cancelJob(oldJobId);
+      context.ui.showToast({ text: 'Disabled daily post.' });
+
       const jobId = await context.scheduler.runJob({
         name: 'daily_thread',
-        cron: '0 12 * * *',
+        cron: '0 0 * * *',
       });
 
       await context.redis.set('jobId', jobId);
