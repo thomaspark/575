@@ -15,4 +15,7 @@ Create a poem in the 5-7-5 haiku format using the words of the day. The words ch
 
 ## Changelog
 
+0.0.9 Increase rarity of long words
+0.0.8 Add common adverbs
+0.0.7 Cancel old daily job before scheduling new job
 0.0.1 Initial version

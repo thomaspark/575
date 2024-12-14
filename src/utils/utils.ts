@@ -16,6 +16,7 @@ export function pickWords (words) {
   arr.push(...shuffle(words.pronouns).slice(0, 10));
   arr.push(...shuffle(words.verbs).slice(0, 15));
   arr.push(...shuffle(words.nouns).slice(0, 15));
+  arr.push(...shuffle(words.longs).slice(0, 5));
   arr.sort((a, b) => {
     return a.word > b.word ? 1 : -1;
   });
