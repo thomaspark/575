@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "the575bot",
+  "post": {
+    "dir": "src/client",
+    "entrypoints": {
+      "default": {
+        "entry": "index.html",
+        "height": "tall"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "redis": true,
+    "reddit": {
+      "enable": true,
+      "scope": "user"
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create New 575 Game",
+        "description": "Post today's 5-7-5 board to this subreddit.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/create-post"
+      },
+      {
+        "label": "Enable daily 575 post",
+        "description": "Post a new board every day at midnight UTC.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/enable-daily"
+      },
+      {
+        "label": "Disable daily 575 post",
+        "description": "Stop posting a new board each day.",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/disable-daily"
+      }
+    ]
+  },
+  "scheduler": {
+    "tasks": {
+      "daily_post": {
+        "endpoint": "/internal/cron/daily-post"
+      }
+    }
+  },
+  "dev": {
+    "subreddit": "575game"
+  },
+  "scripts": {
+    "dev": "npm run build:server -- --watch",
+    "build": "npm run build:server"
+  }
+}

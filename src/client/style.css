@@ -115,7 +115,9 @@ section {
 }
 
 section.words {
-  max-height: calc(100vh - var(--poem-height));
+  /* body adds 2rem of padding top and bottom, which the viewport budget
+     has to account for or the poem section overflows a short webview. */
+  max-height: calc(100vh - var(--poem-height) - 4rem);
 }
 
 section.poem {
@@ -166,7 +168,14 @@ section.poem {
   height: fit-content;
   background-color: var(--CoolGray-600);
   border-radius: var(--border-radius-sm);
-  transition: 0.2 all;
+  transition: all 0.2s;
+}
+
+.magnet:focus-visible,
+.syllables:focus-visible,
+#help-btn:focus-visible {
+  outline: 2px solid var(--Green-500);
+  outline-offset: 2px;
 }
 
 .magnet.disabled {
@@ -179,13 +188,24 @@ section.poem {
   color: #fff;
 }
 
+#status {
+  min-height: 1.2em;
+  margin: 0.5rem 0 0;
+  color: var(--CoolGray-500);
+  font-size: 12px;
+}
+
+#status.error {
+  color: var(--Orangered-500);
+}
+
 #submit {
   margin-left: 1rem;
 }
 
 #words {
   display: flex;
-  justify-content flex-start;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
