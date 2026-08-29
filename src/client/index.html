@@ -37,7 +37,10 @@
       </div>
       <div class="compose">
         <div class="title">
-          <input id="title" type="text" maxlength="100" placeholder="Give it a title"><span class="asterisk">*</span>
+          <span class="field">
+            <input id="title" type="text" maxlength="100" required aria-label="Poem title" placeholder="Give it a title">
+            <span class="asterisk" aria-hidden="true">*</span>
+          </span>
           <button id="submit" class="btn" disabled>Post as comment</button>
         </div>
         <p id="status" role="status" aria-live="polite"></p>
