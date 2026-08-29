@@ -213,13 +213,17 @@ section.poem {
   overflow: auto;
 }
 
-#words .magnet:hover {
+/* Green fill means one thing only: this word is standing in your poem. */
+#words .magnet.used {
   background-color: var(--Green-500);
 }
 
-/* After #words .magnet:hover so a used word keeps its fill while hovered. */
-#words .magnet.used {
-  background-color: var(--Green-500);
+/* Hover leaves the fill alone and rings the word instead, so it reads the same
+   way on a used word as on an unused one and never competes with the green.
+   A ring also costs no label contrast and does not depend on hue, so it
+   survives colour blindness. box-shadow keeps outline free for :focus-visible. */
+#words .magnet:hover {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9);
 }
 
 #poem {
