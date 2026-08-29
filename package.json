@@ -8,7 +8,7 @@
     "build:server": "esbuild src/server/index.ts --bundle --outfile=dist/server/index.cjs --format=cjs --platform=node --target=node22 --minify --loader:.json=json",
     "build": "npm run build:server",
     "check": "tsc --noEmit",
-    "playtest": "devvit playtest"
+    "playtest": "devvit playtest r/575game"
   },
   "dependencies": {
     "@devvit/web": "0.14.1",

@@ -19,7 +19,7 @@ or Space to place, remove, or switch lines.
 ## Development
 
     npm install
-    npm run playtest      # plays to the subreddit in devvit.json "dev"
+    npm run playtest      # plays to r/575game
 
     npm run check         # typecheck server and shared code
     npm run build         # bundle the server to dist/server
