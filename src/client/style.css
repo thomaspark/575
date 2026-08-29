@@ -217,6 +217,11 @@ section.poem {
   background-color: var(--Green-500);
 }
 
+/* After #words .magnet:hover so a used word keeps its fill while hovered. */
+#words .magnet.used {
+  background-color: var(--Green-500);
+}
+
 #poem {
   width: 100%;
   display: flex;

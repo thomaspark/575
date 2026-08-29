@@ -52,6 +52,7 @@ class App {
 
       updateSubmit();
       updateWords();
+      updateUsed();
     };
 
     const updateLine = (target) => {
@@ -63,6 +64,19 @@ class App {
       let active = target.closest('.line').querySelector('.syllables');
       active.classList.add('active');
       line = parseInt(active.getAttribute('data-line'), 10);
+    };
+
+    // Words currently standing in the poem are marked in the bank, so it is
+    // obvious at a glance what has been used. Clearing the last copy of a word
+    // out of the poem unmarks it.
+    const updateUsed = () => {
+      let used = new Set(
+        [...poem.querySelectorAll('.magnet')].map((m) => m.getAttribute('word'))
+      );
+
+      magnetIndex.forEach(({ el }) => {
+        el.classList.toggle('used', used.has(el.getAttribute('word')));
+      });
     };
 
     const updateWords = () => {
@@ -143,8 +157,10 @@ class App {
 
       updateLine(magnet);
       syllables[line] += parseInt(magnet.getAttribute('syllables'));
-      updateSyllables();
+      // Removed before the recount so the word it carried is no longer seen
+      // standing in the poem.
       magnet.remove();
+      updateSyllables();
     };
 
     const clickLine = (e) => {
