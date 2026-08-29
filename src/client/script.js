@@ -77,6 +77,23 @@ class App {
       });
     };
 
+    // Called only when a placement takes a line to zero. Prefers the next
+    // unfinished line, wrapping so lines left short earlier are not skipped;
+    // once nothing is left to fill, the title is the only thing still needed.
+    const advance = () => {
+      for (let i = 1; i <= syllables.length; i++) {
+        let next = (line + i) % syllables.length;
+
+        if (syllables[next] > 0) {
+          updateLine(poem.querySelector(`.line:nth-child(${next + 1}) .syllables`));
+          updateWords();
+          return;
+        }
+      }
+
+      title.focus();
+    };
+
     const clickWord = (e) => {
       let magnet = e.target.closest('.magnet');
 
@@ -95,6 +112,7 @@ class App {
       }
 
       if (syllables[line] - s >= 0) {
+        let before = syllables[line];
         syllables[line] = Math.max(syllables[line] - parseInt(s), 0);
 
         let clone = magnet.cloneNode(true);
@@ -107,6 +125,12 @@ class App {
         }, 150);
         container.appendChild(clone);
         updateSyllables();
+
+        // Only on the transition to zero, so adding a suffix to an already
+        // finished line leaves you on that line to keep editing it.
+        if (before > 0 && syllables[line] === 0) {
+          advance();
+        }
       }
     };
 
