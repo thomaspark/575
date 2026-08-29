@@ -23,7 +23,6 @@
   --Red-700: #7e0011;
   --border-radius-sm: 6px;
   --border-radius-md: 2rem;
-  --poem-height: 175px;
   font-size: 0.8rem;
 }
 
@@ -38,7 +37,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   padding: 2rem;
   margin: 0 auto;
@@ -114,20 +113,66 @@ section {
   justify-content: center;
 }
 
+/* The board absorbs whatever vertical space the poem block does not need,
+   rather than being budgeted against a hardcoded poem height. min-height:0
+   is what lets #words actually scroll instead of pushing the page taller. */
 section.words {
-  /* body adds 2rem of padding top and bottom, which the viewport budget
-     has to account for or the poem section overflows a short webview. */
-  max-height: calc(100vh - var(--poem-height) - 4rem);
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 section.poem {
-  height: var(--poem-height);
+  flex: 0 0 auto;
 }
 
 .title {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   margin-top: 1.5rem;
+}
+
+.title input[type="text"] {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.asterisk {
+  flex: 0 0 auto;
+}
+
+/* Wide enough for the compose controls to sit beside the haiku. Doing so
+   returns the ~70px the title row and status line cost underneath it, which
+   is what stops the board scrolling.
+
+   700px, not the 640px used elsewhere: the widest possible seven-syllable
+   line is 366px of magnets, and below 700 a 13rem compose column leaves the
+   line short enough to scroll sideways. Narrower viewports keep the stacked
+   layout, where the line has the full width. */
+@media (min-width: 700px) {
+  section.poem {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    grid-template-areas:
+      "head    head"
+      "board   compose";
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+
+  section.poem h3 { grid-area: head; }
+  .board { grid-area: board; }
+  .compose { grid-area: compose; }
+
+  .title {
+    margin-top: 0;
+  }
+
+  #submit {
+    flex: 0 0 100%;
+    margin-left: 0;
+    margin-top: 0.25rem;
+  }
 }
 
 .asterisk {
@@ -190,7 +235,7 @@ section.poem {
 
 #status {
   min-height: 1.2em;
-  margin: 0.5rem 0 0;
+  margin: 0.25rem 0 0;
   color: var(--CoolGray-500);
   font-size: 12px;
 }
@@ -204,6 +249,8 @@ section.poem {
 }
 
 #words {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
