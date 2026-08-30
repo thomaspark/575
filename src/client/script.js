@@ -649,6 +649,30 @@ class App {
       }
     });
 
+    // How many sizes down the tiles will go before the bank gives up and
+    // scrolls. Each step is defined in the stylesheet.
+    const FIT_STEPS = 3;
+
+    // The day's words are not a fixed height: a board of long words needs
+    // more rows than a board of short ones, and the post is the same size
+    // either way. So the tiles are sized to the room available, largest
+    // first, rather than the last row being left under a scroll.
+    const fitWords = () => {
+      let bank = document.querySelector('#words');
+
+      for (let step = 0; step <= FIT_STEPS; step++) {
+        if (step === 0) {
+          bank.removeAttribute('data-fit');
+        } else {
+          bank.setAttribute('data-fit', step);
+        }
+
+        if (bank.scrollHeight <= bank.clientHeight) {
+          return;
+        }
+      }
+    };
+
     const loadWords = (words) => {
       let magnets = document.querySelector('#words');
       let fragment = document.createDocumentFragment();
@@ -676,6 +700,7 @@ class App {
 
       magnets.appendChild(fragment);
       updateWords();
+      fitWords();
     };
 
     const formatPoem = () => {
@@ -782,6 +807,13 @@ class App {
         e.preventDefault();
         clickLine(e);
       }
+    });
+
+    // A post can be resized around the game, and the room for words with it.
+    let fitTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(fitTimer);
+      fitTimer = setTimeout(fitWords, 150);
     });
 
     title.addEventListener('input', (e) => {

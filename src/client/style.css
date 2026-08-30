@@ -348,6 +348,38 @@ section.poem {
   transform: none;
 }
 
+/* The bank is dealt to fit: when a day's words need more rows than there is
+   room for, the tiles step down a size rather than the last row hiding under
+   a scroll. Whole pixels at every step, so no step brings back the fractional
+   row heights that made a board that fits scrollable. */
+#words[data-fit="1"] .magnet {
+  padding: 4px 9px;
+  font-size: 13px;
+  line-height: 17px;
+}
+
+#words[data-fit="2"] {
+  row-gap: 4px;
+}
+
+#words[data-fit="2"] .magnet {
+  padding: 3px 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* The last step spends whitespace rather than legibility: the word stays at
+   12px and the box around it gives way instead. */
+#words[data-fit="3"] {
+  row-gap: 3px;
+}
+
+#words[data-fit="3"] .magnet {
+  padding: 2px 7px;
+  font-size: 12px;
+  line-height: 15px;
+}
+
 /* Tiles arrive in a short cascade rather than all at once. The delay is set
    per tile in script.js and capped, so a long board still settles quickly.
 
